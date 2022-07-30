@@ -84,7 +84,7 @@
     }
   </style>
   <script>
-    function sendXhr() {
+    function sendXhr(verb) {
       if (window.XMLHttpRequest) {
         xhr = new XMLHttpRequest();
       } else if (window.ActiveXObject) {
@@ -93,7 +93,7 @@
         return false;
       }
       xhr.onreadystatechange = xhrReadyStateHandler;
-      xhr.open("GET", "status", true);
+      xhr.open("GET", verb, true);
       xhr.send(null);
     }
     function xhrReadyStateHandler() {
@@ -116,8 +116,13 @@
       }
     }
     function getVariables() {
-       sendXhr();
-       timer=setTimeout('getVariables()',10000);
+       sendXhr("status");
+       timer=setTimeout('getVariables()',2000);
+    }
+    
+    function fullPower()
+    {
+    	sendXhr("fullPower")
     }
   </script>
 
@@ -127,6 +132,7 @@
 <body bgcolor='#ffffff'>
   <div class="center">
     <h2>Heidelberg Energy Control (ID <?hdec clientid?>): Aktuelle Werte</h2>
+    <p><button onclick="fullPower()">Volle Leistung freigeben</button><br/></p>
     <p>
       	  Identifikationsstring der Box:<br/>
 	  <?hdec get_logistic_string()?>

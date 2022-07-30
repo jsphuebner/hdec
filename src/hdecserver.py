@@ -68,6 +68,12 @@ class MyServer(BaseHTTPRequestHandler):
                 '"success": {}, "payload": "{}"'.format(str(res).lower(),
                                                         payload) + \
             '}'
+        elif re.match(r'fullPower', self.path):
+            self.send_response(200)
+            self.send_header("Content-type", "text/html; charset=utf-8")
+            data = "Done"
+            with open("../fullpower", 'w') as fd:
+                fd.write("Hallo")
         else:
             self.send_response(200)
             self.send_header("Content-type", "text/html; charset=utf-8")
